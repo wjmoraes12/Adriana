@@ -1,0 +1,55 @@
+algoritmo "CalculoMediaFinal"
+var
+   p1, e1, e2, x, sub, api, exf : real
+   mb, mb_menos_59              : real
+   maxParte, fatorAPI           : real
+   parteBase, resultado         : real
+
+inicio
+   escreval("=== CÁLCULO DE MÉDIA FINAL ===")
+   escreva("Digite a nota de P1 (Prova1): ")
+   leia(p1)
+   escreva("Digite a nota de E1 (Entrega E1): ")
+   leia(e1)
+   escreva("Digite a nota de E2 (Entrega E2): ")
+   leia(e2)
+   escreva("Digite o valor de X (Atividades extras): ")
+   leia(x)
+   escreva("Digite a nota de SUB (Prova substitutiva): ")
+   leia(sub)
+   escreva("Digite a nota de API (Aprendizagem por Projeto Integrado): ")
+   leia(api)
+   escreva("Digite a nota de EXF (Exame Final): ")
+   leia(exf)
+
+   mb <- p1*0.5 + e1*0.2 + e2*0.3 + x + sub*0.15
+
+   mb_menos_59 <- p1*0.5 + e1*0.2 + e2*0.3 + x + (sub*0.15) - 5.9
+
+   se mb_menos_59 > 0 entao
+      maxParte <- mb_menos_59
+   senao
+      maxParte <- 0
+   fimse
+
+   
+   se mb_menos_59 <> 0 entao
+      fatorAPI <- maxParte / mb_menos_59
+   senao
+      fatorAPI <- 0
+   fimse
+
+   parteBase <- (mb * 0.5) + (fatorAPI * api * 0.5)
+
+   se parteBase > exf entao
+      resultado <- parteBase
+   senao
+      resultado <- exf
+   fimse
+
+   escreval()
+   escreval("Média base (MB) considerada: ", mb:0:2)
+   escreval("Fator de bônus da API aplicado (0 ou 1): ", fatorAPI:0:0)
+   escreval("MÉDIA FINAL: ", resultado:0:2)
+
+fimalgoritmo
