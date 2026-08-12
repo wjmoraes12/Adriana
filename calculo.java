@@ -28,18 +28,12 @@ public class calculo {
         System.out.print("Digite a nota de EXF (Exame Final): ");
         double exf = sc.nextDouble();
 
-        // Média base ponderada (SUB entra com peso 0.15)
         double mb = p1 * 0.5 + e1 * 0.2 + e2 * 0.3 + x + sub * 0.15;
 
-        // mesma expressão, subtraindo 5.9 (usada como "gatilho")
         double mbMenos59 = p1 * 0.5 + e1 * 0.2 + e2 * 0.3 + x + (sub * 0.15) - 5.9;
 
-        // max(mbMenos59, 0)
         double maxParte = Math.max(mbMenos59, 0);
 
-        // fatorAPI vira 1 se mbMenos59 > 0 (média base > 5.9)
-        // vira 0 se mbMenos59 < 0
-        // evita divisão por zero quando mbMenos59 = 0
         double fatorAPI;
         if (mbMenos59 != 0) {
             fatorAPI = maxParte / mbMenos59;
@@ -47,10 +41,8 @@ public class calculo {
             fatorAPI = 0;
         }
 
-        // parte base da fórmula: (MB * 0.5) + fatorAPI * API * 0.5
         double parteBase = (mb * 0.5) + (fatorAPI * api * 0.5);
 
-        // resultado final = max(parteBase, EXF)
         double resultado = Math.max(parteBase, exf);
 
         System.out.println();
