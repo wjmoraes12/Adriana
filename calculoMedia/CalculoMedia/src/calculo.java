@@ -2,61 +2,58 @@ import java.util.Scanner;
 
 public class calculo {
 
+    public static float calcularMB(float p1, float e1, float e2, float x, float sub) {
+        return p1 * 0.5f + e1 * 0.2f + e2 * 0.3f + x + sub * 0.15f;
+    }
+
+    public static float calcularFatorAPI(float mbMenos59) {
+        float maxParte = Math.max(mbMenos59, 0);
+        if (mbMenos59 != 0) return maxParte / mbMenos59;
+        return 0;
+    }
+
+    public static float calcularMediaFinal(float mb, float fatorAPI, float api, float exf) {
+        float parteBase = mb * 0.5f + fatorAPI * api * 0.5f;
+        return Math.max(parteBase, exf);
+    }
+
+    public static void outputdata(String frase) {
+        System.out.println(frase);
+    }
+
+    public static void outputdata(String frase, Object... valores) {
+        System.out.printf(frase + "%n", valores);
+    }
+
+    public static float inputData(Scanner sc) {
+        while (true) {
+            try { return sc.nextFloat(); }
+            catch (Exception e) { outputdata("ERRO: digite um número válido."); sc.next(); }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("=== CÁLCULO DE MÉDIA FINAL ===");
+        outputdata("=== CÁLCULO DE MÉDIA FINAL ===");
 
-        System.out.print("Digite a nota de P1 (Prova1): ");
-        double p1 = sc.nextDouble();
+        outputdata("Digite a nota de P1 (Prova1): "); float p1 = inputData(sc);
+        outputdata("Digite a nota de E1 (Entrega E1): "); float e1 = inputData(sc);
+        outputdata("Digite a nota de E2 (Entrega E2): "); float e2 = inputData(sc);
+        outputdata("Digite o valor de X (Atividades extras): "); float x = inputData(sc);
+        outputdata("Digite a nota de SUB (Prova substitutiva): "); float sub = inputData(sc);
+        outputdata("Digite a nota de API (Aprendizagem por Projeto Integrado): "); float api = inputData(sc);
+        outputdata("Digite a nota de EXF (Exame Final): "); float exf = inputData(sc);
 
-        System.out.print("Digite a nota de E1 (Entrega E1): ");
-        double e1 = sc.nextDouble();
+        float mb = calcularMB(p1, e1, e2, x, sub);
+        float mbMenos59 = mb - 5.9f;
+        float fatorAPI = calcularFatorAPI(mbMenos59);
+        float resultado = calcularMediaFinal(mb, fatorAPI, api, exf);
 
-        System.out.print("Digite a nota de E2 (Entrega E2): ");
-        double e2 = sc.nextDouble();
-
-        System.out.print("Digite o valor de X (Atividades extras): ");
-        double x = sc.nextDouble();
-
-        System.out.print("Digite a nota de SUB (Prova substitutiva): ");
-        double sub = sc.nextDouble();
-
-        System.out.print("Digite a nota de API (Aprendizagem por Projeto Integrado): ");
-        double api = sc.nextDouble();
-
-        System.out.print("Digite a nota de EXF (Exame Final): ");
-        double exf = sc.nextDouble();
-
-        // Média base ponderada (SUB entra com peso 0.15)
-        double mb = p1 * 0.5 + e1 * 0.2 + e2 * 0.3 + x + sub * 0.15;
-
-        // mesma expressão, subtraindo 5.9 (usada como "gatilho")
-        double mbMenos59 = p1 * 0.5 + e1 * 0.2 + e2 * 0.3 + x + (sub * 0.15) - 5.9;
-
-        // max(mbMenos59, 0)
-        double maxParte = Math.max(mbMenos59, 0);
-
-        // fatorAPI vira 1 se mbMenos59 > 0 (média base > 5.9)
-        // vira 0 se mbMenos59 < 0
-        // evita divisão por zero quando mbMenos59 = 0
-        double fatorAPI;
-        if (mbMenos59 != 0) {
-            fatorAPI = maxParte / mbMenos59;
-        } else {
-            fatorAPI = 0;
-        }
-
-        // parte base da fórmula: (MB * 0.5) + fatorAPI * API * 0.5
-        double parteBase = (mb * 0.5) + (fatorAPI * api * 0.5);
-
-        // resultado final = max(parteBase, EXF)
-        double resultado = Math.max(parteBase, exf);
-
-        System.out.println();
-        System.out.printf("Média base (MB) considerada: %.2f%n", mb);
-        System.out.printf("Fator de bônus da API aplicado (0 ou 1): %.0f%n", fatorAPI);
-        System.out.printf("MÉDIA FINAL: %.2f%n", resultado);
+        outputdata("");
+        outputdata("Média base (MB) considerada: %.2f", mb);
+        outputdata("Fator de bônus da API aplicado (0 ou 1): %.0f", fatorAPI);
+        outputdata("MÉDIA FINAL: %.2f", resultado);
 
         sc.close();
     }
