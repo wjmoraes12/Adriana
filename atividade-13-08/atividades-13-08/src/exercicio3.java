@@ -57,8 +57,6 @@ public class exercicio3 {
         System.out.print("Sal - Preço: R$ ");
         float precoSal = sc.nextFloat();
 
-
-        // Preço parcial de cada produto
         float parcialArroz = qtdArroz * precoArroz;
         float parcialFeijao = qtdFeijao * precoFeijao;
         float parcialOleo = qtdOleo * precoOleo;
@@ -70,20 +68,8 @@ public class exercicio3 {
         float parcialMolho = qtdMolho * precoMolho;
         float parcialSal = qtdSal * precoSal;
 
-        // Valor total da compra
-        float valorCompra =
-                parcialArroz +
-                        parcialFeijao +
-                        parcialOleo +
-                        parcialAcucar +
-                        parcialCafe +
-                        parcialMacarrao +
-                        parcialFarinha +
-                        parcialFuba +
-                        parcialMolho +
-                        parcialSal;
+        float valorCompra = parcialArroz + parcialFeijao + parcialOleo + parcialAcucar + parcialCafe + parcialMacarrao + parcialFarinha + parcialFuba + parcialMolho + parcialSal;
 
-        // Desconto
         float desconto = 0;
 
         if (valorCompra > 100) {
@@ -92,8 +78,6 @@ public class exercicio3 {
 
         float valorFinal = valorCompra - desconto;
 
-
-        // Caixa
         System.out.println("\n================ CAIXA ================");
 
         System.out.printf("%-25s %-5s %-12s%n", "ITEM", "QTD", "PARCIAL");
